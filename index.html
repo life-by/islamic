@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>হোম পেজ - কুরআন ও নামাজ শিক্ষা</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary-color: #1a7e61; /* Slightly darker green */
+            --secondary-color: #f1f8f7; /* Very light green/grey */
+            --text-color: #212529; /* Dark grey */
+            --points-color: #0d6efd; /* Bootstrap blue */
+            --correct-color: #198754; /* Bootstrap success green */
+            --incorrect-color: #dc3545; /* Bootstrap danger red */
+            --border-color: #dee2e6;
+            --border-radius: 10px; /* Slightly more rounded */
+            --bangla-font: 'Noto Sans Bengali', sans-serif;
+            --arabic-font: 'Noto Naskh Arabic', 'Traditional Arabic', serif;
+            --box-shadow: 0 5px 15px rgba(0, 83, 72, 0.1); /* Subtle shadow */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px; /* Base font size */
+        }
+
+        body {
+            font-family: var(--bangla-font);
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to top */
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 700px; /* Wider */
+            width: 100%;
+            margin-top: 1.5rem; /* Space from top */
+            margin-bottom: 1.5rem; /* Space at bottom */
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1.8rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .points-area {
+            background-color: #e0f2f0;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2.5rem;
+            border: 1px solid #a1cec8;
+            display: inline-block;
+            min-width: 200px; /* Ensure minimum width */
+        }
+
+        .points-area span {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        #home-points-display {
+            color: var(--points-color);
+            margin-left: 0.7rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        /* Button Group Styling */
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr; /* Default single column */
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        /* Two columns on larger screens */
+        @media (min-width: 576px) {
+            .button-group {
+                grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+            }
+            /* Make last button span full width if odd number */
+            .button-group > *:last-child:nth-child(odd) {
+                 grid-column: span 2;
+            }
+        }
+
+
+        .action-button {
+            display: block;
+            color: white;
+            padding: 0.9rem 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: var(--bangla-font);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        .action-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button Specific Colors */
+        .action-button.quran-learn { background-color: var(--primary-color); }
+        .action-button.quran-learn:hover { background-color: #156a5d; }
+        .action-button.alphabet { background-color: #0d6efd; } /* Blue */
+        .action-button.alphabet:hover { background-color: #0b5ed7; }
+        .action-button.makhraj { background-color: #ff8c00; } /* Orange */
+        .action-button.makhraj:hover { background-color: #d97700; }
+        .action-button.surah { background-color: #198754; } /* Green */
+        .action-button.surah:hover { background-color: #146c43; }
+        .action-button.namaz { background-color: #6f42c1; } /* Purple */
+        .action-button.namaz:hover { background-color: #5f38a8; }
+        .action-button.quiz { background-color: var(--incorrect-color); } /* Red */
+        .action-button.quiz:hover { background-color: #bb2d3b; }
+
+
+        /* --- Quiz Section Styles --- */
+        #quiz-container-home {
+            margin-top: 2.5rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+            text-align: left;
+        }
+        #quiz-area-home { margin-bottom: 1.5rem; }
+        #question-area-home {
+            margin-bottom: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+        #question-number-home {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        #question-text-home {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            min-height: 50px;
+            line-height: 1.6;
+        }
+        .arabic-example-home {
+            font-family: var(--arabic-font);
+            font-size: 2rem;
+            direction: rtl;
+            color: #1c1c1c;
+            display: block;
+            margin: 1rem auto 1.8rem auto; /* Center block element */
+            line-height: 1.9;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-width: 90%; /* Prevent very wide arabic examples */
+        }
+        .arabic-example-home .highlight {
+             color: var(--incorrect-color);
+             font-weight: 700;
+             padding: 0 2px;
+             border-radius: 3px;
+             background-color: rgba(220, 53, 69, 0.08); /* Very subtle bg */
+        }
+        #options-container-home {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+         @media (min-width: 576px) {
+            #options-container-home { grid-template-columns: 1fr 1fr; }
+         }
+
+        .option-btn-home {
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.8rem 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-family: var(--bangla-font);
+            text-align: left;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-weight: 500;
+        }
+        .option-btn-home:hover:not(:disabled) {
+            background-color: #e9ecef;
+            border-color: #adb5bd;
+            transform: translateY(-2px);
+        }
+        .option-btn-home:disabled { cursor: not-allowed; opacity: 0.65; }
+        .option-btn-home.incorrect {
+            background-color: var(--incorrect-color);
+            border-color: var(--incorrect-color);
+            color: var(--white-color);
+            font-weight: 700;
+            opacity: 1;
+        }
+        .option-btn-home.correct {
+            background-color: var(--correct-color);
+            border-color: var(--correct-color);
+            color: var(--white-color);
+            font-weight: 700;
+        }
+        #feedback-home {
+            margin-top: 1rem;
+            font-weight: 700;
+            min-height: 30px;
+            text-align: center;
+            font-size: 1.15rem;
+        }
+        #feedback-home.correct { color: var(--correct-color); }
+        #feedback-home.incorrect { color: var(--incorrect-color); }
+
+        #controls-home {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        #next-button-home {
+            display: none; /* Initially hidden */
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: var(--bangla-font);
+            transition: all 0.3s ease;
+             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        #next-button-home:hover { background-color: #156a5d; transform: translateY(-2px); }
+        #next-button-home:disabled { background-color: #a1cec8; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        /* Results Section */
+        #results-container-home {
+            display: none;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        #results-container-home h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.9rem;
+        }
+        #final-score-home {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--points-color);
+        }
+        #performance-message-home {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.8rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+         .results-buttons-home {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 1rem;
+            margin-top: 1.5rem;
+         }
+        #restart-button-home, #back-to-home-button {
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: var(--bangla-font);
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px; /* Ensure minimum button width */
+        }
+        #restart-button-home { background-color: var(--primary-color); }
+        #restart-button-home:hover { background-color: #156a5d; transform: translateY(-2px); }
+        #back-to-home-button { background-color: #6c757d; } /* Grey */
+        #back-to-home-button:hover { background-color: #5a6268; transform: translateY(-2px); }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+             .container { padding: 1.5rem 1.8rem; max-width: 95%; }
+             h1 { font-size: 1.9rem; margin-bottom: 1.5rem; }
+             .points-area { padding: 0.8rem 1rem; margin-bottom: 1.8rem; }
+             .points-area span { font-size: 1.15rem; }
+             #home-points-display { font-size: 1.4rem; }
+             .action-button { font-size: 1rem; padding: 0.8rem 1rem; }
+             /* Quiz Responsive */
+             #quiz-container-home { margin-top: 2rem; padding-top: 1.5rem; }
+             #question-text-home { font-size: 1.2rem; }
+             .arabic-example-home { font-size: 1.8rem; padding: 0.6rem 0.8rem; }
+             .option-btn-home { font-size: 1rem; padding: 0.7rem 1rem; }
+             #next-button-home, #restart-button-home, #back-to-home-button { font-size: 1rem; padding: 0.7rem 1.5rem; }
+             #results-container-home h2 { font-size: 1.6rem; }
+             #final-score-home { font-size: 1.5rem; }
+             #performance-message-home { font-size: 1.1rem; }
+         }
+         @media (max-width: 480px) {
+             body { padding: 1rem; }
+             .container { padding: 1.5rem 1rem; }
+             h1 { font-size: 1.6rem; }
+             .points-area span { font-size: 1.05rem; }
+             #home-points-display { font-size: 1.25rem; }
+             .button-group { grid-template-columns: 1fr; } /* Force single column */
+              .button-group > *:last-child:nth-child(odd) { grid-column: span 1; } /* Reset span for single column */
+             .action-button { font-size: 0.95rem; }
+             /* Quiz Responsive */
+              #question-text-home { font-size: 1.1rem; }
+             .arabic-example-home { font-size: 1.6rem; }
+             .option-btn-home { font-size: 0.95rem; }
+             #next-button-home, #restart-button-home, #back-to-home-button { font-size: 0.95rem; padding: 0.6rem 1.2rem; }
+              .results-buttons-home { flex-direction: column; align-items: center; } /* Stack buttons vertically */
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>কুরআন ও নামাজ শিক্ষা</h1>
+
+        <!-- Points Display Area -->
+        <div class="points-area">
+            <span>মোট পয়েন্ট:</span>
+            <span id="home-points-display">০</span> <!-- Default to 0 -->
+        </div>
+
+        <!-- Main Action Buttons (Initially Visible) -->
+        <div class="button-group" id="main-action-buttons">
+            <a href="File/Q-lavel-2-merged.html" class="action-button quran-learn">কুরআন শিক্ষা লেভেল-২</a>
+            <a href="File/Alfabet.html" class="action-button alphabet">আরবি হরফ শিক্ষা</a>
+            <a href="File/makraj.html" class="action-button makhraj">মাখরাজ শিক্ষা</a>
+            <a href="File/sora-H.html" class="action-button surah">সুরা শিখুন</a>
+            <a href="File/namaz.html" class="action-button namaz">নামাজ শিক্ষা</a>
+            <button id="start-home-quiz" class="action-button quiz">মৌলিক জ্ঞান পরীক্ষা করুন</button>
+        </div>
+
+        <!-- Quiz Section (Initially Hidden) -->
+        <div id="quiz-container-home" style="display: none;">
+            <div id="quiz-area-home">
+                <div id="question-area-home">
+                    <span id="question-number-home">প্রশ্ন লোড হচ্ছে...</span>
+                    <p id="question-text-home"></p>
+                    <span id="arabic-example-home" class="arabic-example-home"></span>
+                    <div id="options-container-home"></div>
+                    <div id="feedback-home"></div>
+                </div>
+                <div id="controls-home">
+                    <button id="next-button-home">পরবর্তী প্রশ্ন</button>
+                </div>
+            </div>
+            <div id="results-container-home">
+                <h2>পরীক্ষা সম্পন্ন!</h2>
+                <p id="final-score-home"></p>
+                <p id="performance-message-home"></p>
+                 <div class="results-buttons-home">
+                    <button id="restart-button-home">আবার পরীক্ষা দিন</button>
+                    <button id="back-to-home-button">হোম পেজে ফিরুন</button>
+                 </div>
+            </div>
+        </div>
+
+    </div><!-- End of container -->
+
+    <!-- Link the external questions file BEFORE the main script -->
+    <script src="questions.js"></script>
+
+    <!-- Main Script for index.html -->
+    <script>
+        // --- Constants ---
+        const pointsStorageKey = 'quranicLearnerPointsL2'; // Consistent key
+        const BENGALI_NUMERALS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+
+        // --- DOM Element References ---
+        const mainActionButtonsContainer = document.getElementById('main-action-buttons');
+        const quizContainerHome = document.getElementById('quiz-container-home');
+        const startHomeQuizButton = document.getElementById('start-home-quiz');
+
+        const quizAreaHome = document.getElementById('quiz-area-home');
+        const questionNumberHomeEl = document.getElementById('question-number-home');
+        const questionTextHomeEl = document.getElementById('question-text-home');
+        const arabicExampleHomeEl = document.getElementById('arabic-example-home');
+        const optionsContainerHomeEl = document.getElementById('options-container-home');
+        const feedbackHomeEl = document.getElementById('feedback-home');
+        const nextButtonHome = document.getElementById('next-button-home');
+
+        const resultsContainerHome = document.getElementById('results-container-home');
+        const finalScoreHomeEl = document.getElementById('final-score-home');
+        const performanceMessageHomeEl = document.getElementById('performance-message-home');
+        const restartButtonHome = document.getElementById('restart-button-home');
+        const backToHomeButton = document.getElementById('back-to-home-button');
+
+        const homePointsDisplayEl = document.getElementById('home-points-display');
+
+        // --- Quiz State Variables ---
+        let homeCurrentQuestionIndex = 0;
+        let homeScore; // Loaded from storage
+        let homeShuffledQuestions = [];
+        let homeCurrentQuestionAnsweredCorrectly = false;
+
+        // --- Utility Functions ---
+        function toBengaliNumerals(numberString) {
+             if (typeof numberString !== 'string') {
+                 numberString = String(numberString); // Convert to string if not already
+             }
+            let bengaliString = '';
+            for (let i = 0; i < numberString.length; i++) {
+                const digit = parseInt(numberString[i]);
+                bengaliString += (isNaN(digit) || digit < 0 || digit > 9) ? numberString[i] : BENGALI_NUMERALS[digit];
+            }
+            return bengaliString;
+        }
+
+        function loadPointsFromStorage() {
+            try {
+                const storedPoints = localStorage.getItem(pointsStorageKey);
+                let points = storedPoints ? parseInt(storedPoints, 10) : 0;
+                return isNaN(points) ? 0 : points;
+            } catch (error) {
+                console.error("Error reading points:", error);
+                return 0;
+            }
+        }
+
+        function savePointsToStorage(points) {
+            try {
+                localStorage.setItem(pointsStorageKey, points);
+            } catch (error) {
+                console.error("Error saving points:", error);
+            }
+        }
+
+        function updateMainPointsDisplay(scoreValue) {
+            if (homePointsDisplayEl) {
+                homePointsDisplayEl.textContent = toBengaliNumerals(scoreValue);
+            }
+        }
+
+        // --- Quiz Logic Functions ---
+
+        function shuffleArrayHome(array) {
+            // Check if the array exists and is an array
+            if (!Array.isArray(array) || array.length === 0) {
+                console.error("Cannot shuffle empty or invalid array:", array);
+                return []; // Return empty array to prevent errors
+            }
+            let newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function loadQuestionHome() {
+            homeCurrentQuestionAnsweredCorrectly = false;
+            nextButtonHome.style.display = 'none';
+            optionsContainerHomeEl.innerHTML = '';
+            feedbackHomeEl.innerHTML = '';
+            feedbackHomeEl.className = '';
+
+             // Ensure homeShuffledQuestions is populated
+             if (!homeShuffledQuestions || homeShuffledQuestions.length === 0) {
+                 console.error("No questions loaded or shuffled for the home quiz.");
+                 // Optionally display an error message to the user
+                  questionTextHomeEl.textContent = "দুঃখিত, প্রশ্ন লোড করা যায়নি।";
+                 return; // Stop execution
+             }
+
+            if (homeCurrentQuestionIndex >= homeShuffledQuestions.length) {
+                showResultsHome();
+                return;
+            }
+
+            const currentQuestion = homeShuffledQuestions[homeCurrentQuestionIndex];
+
+            // Check if currentQuestion is valid
+            if (!currentQuestion || !currentQuestion.question || !Array.isArray(currentQuestion.options)) {
+                console.error("Invalid question data at index:", homeCurrentQuestionIndex, currentQuestion);
+                 // Skip to next question or show error
+                 homeCurrentQuestionIndex++;
+                 loadQuestionHome(); // Try loading the next one
+                return;
+            }
+
+
+            questionNumberHomeEl.textContent = `প্রশ্ন ${toBengaliNumerals(homeCurrentQuestionIndex + 1)} / ${toBengaliNumerals(homeShuffledQuestions.length)}`;
+            questionTextHomeEl.innerHTML = currentQuestion.question.replace(/মাদ্ আসলি/g, 'মাদ্ আসলি (মাদ্ তাবি\'ঈ)');
+
+             if (currentQuestion.arabic && currentQuestion.arabic.trim() !== "") {
+                 arabicExampleHomeEl.innerHTML = currentQuestion.arabic.replace(/মাদ্ আসলি/g, 'মাদ্ আসলি (মাদ্ তাবি\'ঈ)');
+                 arabicExampleHomeEl.style.display = 'block';
+             } else {
+                 arabicExampleHomeEl.style.display = 'none';
+                 arabicExampleHomeEl.innerHTML = '';
+             }
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerHTML = option.replace(/মাদ্ আসলি/g, 'মাদ্ আসলি (মাদ্ তাবি\'ঈ)');
+                button.classList.add('option-btn-home');
+                button.dataset.originalOption = option; // Store original value
+                button.addEventListener('click', () => selectAnswerHome(button, option, currentQuestion.correctAnswer));
+                optionsContainerHomeEl.appendChild(button);
+            });
+
+            // Scroll handling (optional)
+            // if(quizAreaHome) quizAreaHome.scrollTop = 0;
+        }
+
+        function selectAnswerHome(selectedButton, selectedAnswer, correctAnswer) {
+            if (homeCurrentQuestionAnsweredCorrectly) return;
+
+            const optionButtons = optionsContainerHomeEl.querySelectorAll('.option-btn-home');
+            const isCorrect = selectedAnswer === correctAnswer;
+
+            // Disable the clicked button *only* if it's wrong, to allow retry on others
+            if (!isCorrect) {
+                 selectedButton.disabled = true; // Disable only the wrongly clicked button
+            }
+
+
+            if (isCorrect) {
+                homeScore += 5;
+                 optionButtons.forEach(btn => { // Clear previous incorrect styles if any
+                     btn.classList.remove('incorrect');
+                     btn.disabled = true; // Disable all on correct answer
+                 });
+                selectedButton.classList.add('correct'); // Mark selected as correct
+                feedbackHomeEl.textContent = `সঠিক উত্তর! (+${toBengaliNumerals('5')} পয়েন্ট)`;
+                feedbackHomeEl.className = 'correct';
+                homeCurrentQuestionAnsweredCorrectly = true;
+
+                nextButtonHome.style.display = 'inline-block';
+                nextButtonHome.disabled = false;
+
+            } else {
+                homeScore -= 5;
+                selectedButton.classList.add('incorrect'); // Mark selected as incorrect
+
+                 // Don't disable other buttons, just the incorrect one (already done above)
+                 // Re-enable previously wrong-selected buttons for this question if needed
+                 optionButtons.forEach(btn => {
+                     if (btn !== selectedButton && btn.classList.contains('incorrect')) {
+                         // If another button was previously marked incorrect for *this same question attempt*
+                         // and it's not the currently clicked incorrect one, re-enable it?
+                         // This logic gets tricky. Simpler: Only disable the *current* wrong choice.
+                         // Let's stick to only disabling the currently clicked wrong button.
+                     }
+                 });
+
+                feedbackHomeEl.textContent = `ভুল উত্তর (-${toBengaliNumerals('5')} পয়েন্ট)। আবার চেষ্টা করুন!`;
+                feedbackHomeEl.className = 'incorrect';
+            }
+
+            savePointsToStorage(homeScore);
+            updateMainPointsDisplay(homeScore);
+        }
+
+        function showResultsHome() {
+            if (!quizAreaHome || !resultsContainerHome) return; // Safety check
+            quizAreaHome.style.display = 'none';
+            resultsContainerHome.style.display = 'block';
+
+            const totalQuestionsInSet = homeShuffledQuestions.length;
+            finalScoreHomeEl.textContent = `আপনার চূড়ান্ত স্কোর: ${toBengaliNumerals(homeScore)}`;
+
+            let performanceText = "";
+            const maxPossibleScore = totalQuestionsInSet * 5;
+            // Avoid division by zero if no questions
+            const scoreRatio = maxPossibleScore > 0 ? homeScore / maxPossibleScore : 0;
+
+            if (scoreRatio >= 0.8) { performanceText = "চমৎকার! আপনার মৌলিক জ্ঞান খুবই ভালো।"; }
+            else if (scoreRatio >= 0.5) { performanceText = "ভালো চেষ্টা! চালিয়ে গেলে আরও উন্নতি হবে।"; }
+            else if (homeScore >= 0){ performanceText = "আরও অনুশীলন প্রয়োজন। হতাশ না হয়ে চেষ্টা চালিয়ে যান!"; }
+            else { performanceText = "স্কোর বেশ কম হয়েছে। মৌলিক বিষয়গুলো আবার ঝালিয়ে নেওয়া দরকার।"; }
+            performanceMessageHomeEl.textContent = performanceText;
+        }
+
+        function restartQuizHome() {
+            homeCurrentQuestionIndex = 0;
+            homeScore = loadPointsFromStorage(); // Reload score
+            updateMainPointsDisplay(homeScore);
+            homeCurrentQuestionAnsweredCorrectly = false;
+
+             // Ensure homeQuestions is available
+             if (typeof homeQuestions === 'undefined' || !Array.isArray(homeQuestions)) {
+                console.error("'homeQuestions' is not defined or not an array. Make sure questions.js is loaded correctly.");
+                alert("প্রশ্ন লোড করা যায়নি। অনুগ্রহ করে পৃষ্ঠাটি রিফ্রেশ করুন।");
+                return;
+            }
+
+            homeShuffledQuestions = shuffleArrayHome(homeQuestions);
+
+            if (!resultsContainerHome || !quizAreaHome || !nextButtonHome) return; // Safety check
+
+            resultsContainerHome.style.display = 'none';
+            quizAreaHome.style.display = 'block';
+            nextButtonHome.style.display = 'none';
+
+            loadQuestionHome();
+        }
+
+        function initializeQuizHome() {
+            homeScore = loadPointsFromStorage();
+            updateMainPointsDisplay(homeScore);
+
+             // Ensure homeQuestions is available from questions.js
+             if (typeof homeQuestions === 'undefined' || !Array.isArray(homeQuestions)) {
+                 console.error("'homeQuestions' is not defined or not an array. Make sure questions.js is loaded correctly before initializing.");
+                 // Display user-friendly error maybe?
+                 alert("প্রশ্ন লোড করতে সমস্যা হচ্ছে। অনুগ্রহ করে পৃষ্ঠাটি রিফ্রেশ করুন।");
+                 return; // Stop initialization
+             }
+
+            homeShuffledQuestions = shuffleArrayHome(homeQuestions);
+            homeCurrentQuestionIndex = 0;
+            homeCurrentQuestionAnsweredCorrectly = false;
+
+            if (!mainActionButtonsContainer || !resultsContainerHome || !quizContainerHome || !quizAreaHome || !nextButtonHome) return; // Safety check
+
+            mainActionButtonsContainer.style.display = 'none';
+            resultsContainerHome.style.display = 'none';
+            quizContainerHome.style.display = 'block';
+            quizAreaHome.style.display = 'block';
+            nextButtonHome.style.display = 'none';
+
+            loadQuestionHome();
+        }
+
+        function goBackToHomeView() {
+            if (!quizContainerHome || !mainActionButtonsContainer) return; // Safety check
+             quizContainerHome.style.display = 'none';
+             mainActionButtonsContainer.style.display = 'grid'; // Use grid for button layout
+             updateMainPointsDisplay(loadPointsFromStorage());
+         }
+
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateMainPointsDisplay(loadPointsFromStorage()); // Display initial points
+
+             // Ensure buttons exist before adding listeners
+             if (startHomeQuizButton) {
+                 startHomeQuizButton.addEventListener('click', initializeQuizHome);
+             } else {
+                 console.error("Start quiz button not found.");
+             }
+
+             if (nextButtonHome) {
+                 nextButtonHome.addEventListener('click', () => {
+                     if (homeCurrentQuestionAnsweredCorrectly) {
+                         homeCurrentQuestionIndex++;
+                         loadQuestionHome();
+                     }
+                 });
+             } else {
+                 console.error("Next button (home) not found.");
+             }
+
+             if (restartButtonHome) {
+                 restartButtonHome.addEventListener('click', restartQuizHome);
+             } else {
+                 console.error("Restart button (home) not found.");
+             }
+
+             if (backToHomeButton) {
+                 backToHomeButton.addEventListener('click', goBackToHomeView);
+             } else {
+                  console.error("Back to home button not found.");
+             }
+
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            updateMainPointsDisplay(loadPointsFromStorage());
+            // Logic to show home view when navigating back, unless quiz is actively displayed
+            if (quizContainerHome && (!quizContainerHome.style.display || quizContainerHome.style.display === 'none')) {
+                  goBackToHomeView();
+             }
+        });
+
+    </script>
+
+</body>
+</html>
