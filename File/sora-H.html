@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গুরুত্বপূর্ণ সূরা সমূহ</title>
+    <!-- Google Fonts for Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Global Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f4f7f6; /* Light, calming background */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure footer stays at bottom */
+            margin: 0;
+        }
+
+        /* --- Header Styles --- */
+        header {
+            background: linear-gradient(90deg, #08AEEA 0%, #2AF598 100%); /* Pleasant gradient */
+            color: white;
+            padding: 1rem 1.5rem; /* Adjusted padding */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between items */
+            align-items: center; /* Vertically align items */
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            gap: 1rem; /* Space between items when wrapped */
+        }
+
+        header h1 {
+            font-weight: 700;
+            font-size: 1.7rem; /* Slightly adjusted size */
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            flex: 1 1 auto; /* Allow title to grow/shrink */
+            text-align: center; /* Center title text */
+            order: 2; /* Make title appear second */
+        }
+
+        /* --- Home Button Styles (in Header) --- */
+        .home-button {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #00796b; /* Teal color matching Surah buttons */
+            padding: 0.6rem 1.2rem; /* Button padding */
+            border-radius: 6px;
+            text-decoration: none; /* Remove underline from link */
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Hind Siliguri', sans-serif;
+            border: 1px solid #00796b; /* Subtle border */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+            order: 1; /* Make button appear first */
+            flex-shrink: 0; /* Prevent button shrinking too much */
+        }
+
+        .home-button:hover,
+        .home-button:focus {
+            background-color: #e0f2f1; /* Lighter teal background on hover */
+            color: #004d40; /* Darker teal text on hover */
+            border-color: #004d40;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        /* --- Main Content Area --- */
+        main {
+            flex: 1; /* Allow main content to grow and push footer down */
+            max-width: 1100px;
+            margin: 2rem auto; /* Center content with spacing */
+            padding: 1.5rem;
+            width: 95%; /* Responsive width */
+        }
+
+        .intro-text {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* --- Button Container --- */
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive grid */
+            gap: 1.5rem; /* Spacing between buttons */
+            justify-content: center; /* Center grid items if they don't fill the row */
+        }
+
+        /* --- Surah Button Styles --- */
+        .surah-button {
+            background-color: #ffffff; /* White background for buttons */
+            color: #00796b; /* Teal color for text */
+            border: 2px solid #00796b; /* Teal border */
+            padding: 1rem 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Hind Siliguri', sans-serif;
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease-in-out; /* Smooth transitions */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+            text-decoration: none; /* Remove underline if used as link */
+            display: block; /* Make button fill grid cell */
+            width: 100%; /* Ensure buttons take full width of grid cell */
+        }
+
+        .surah-button:hover,
+        .surah-button:focus {
+            background-color: #00796b; /* Teal background on hover */
+            color: #ffffff; /* White text on hover */
+            transform: translateY(-3px); /* Slight lift effect */
+            box-shadow: 0 6px 12px rgba(0, 121, 107, 0.3); /* Enhanced shadow on hover */
+            outline: none; /* Remove default focus outline */
+            border-color: #006a5f; /* Slightly darker border on hover */
+        }
+
+        .surah-button:active {
+             transform: translateY(0); /* Reset lift effect on click */
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Reset shadow on click */
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #e0e0e0; /* Light grey footer */
+            color: #555;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem; /* Space above footer */
+            font-size: 0.9rem;
+            border-top: 1px solid #ccc;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem; /* Adjust header padding */
+            }
+            header h1 {
+                font-size: 1.5rem;
+                text-align: center; /* Ensure title stays centered */
+            }
+            .home-button {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            main {
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+            .button-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Smaller min width on smaller screens */
+                gap: 1rem;
+            }
+            .surah-button {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+            .intro-text {
+                 font-size: 1rem;
+                 margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+             header {
+                 /* Already wraps, but ensure center alignment */
+                 justify-content: center; /* Center items when wrapped */
+             }
+             header h1 {
+                font-size: 1.3rem;
+                order: 2; /* Title below button */
+                width: 100%; /* Take full width when stacked */
+                text-align: center; /* Ensure centered */
+                margin-top: 0.5rem; /* Space between button and title */
+             }
+             .home-button {
+                 order: 1; /* Button above title */
+                 width: auto; /* Size based on content */
+                 padding: 0.6rem 1rem;
+             }
+             .button-container {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+             }
+             .surah-button {
+                 padding: 1rem; /* More padding vertically */
+             }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Home Button Added Here -->
+        <a href="../index.html" class="home-button">হোম পেজ</a>
+        <h1>কুরআনের গুরুত্বপূর্ণ সূরা সমূহ</h1>
+    </header>
+
+    <main>
+        <p class="intro-text">নিচে উল্লেখিত সূরাগুলোর নাম বাটনে ক্লিক করে বিস্তারিত জানতে পারবেন (ভবিষ্যতে সংযুক্ত করা হবে)।</p>
+
+        <div class="button-container">
+            <!-- Surah Buttons -->
+        <a href="../Data/সুরা ফাতিহা/sura.html">
+            <button class="surah-button" data-surah="fatiha">সূরা ফাতিহা</button>
+        </a>
+
+        <a href="../Data/সুরা আসর/sura.html">
+            <button class="surah-button" data-surah="asr">সূরা আসর</button>
+        </a>
+        
+        <a href="../Data/সুরা ইখলাস/Sura iklas.html">    
+            <button class="surah-button" data-surah="ikhlas">সূরা ইখলাস</button>
+        </a>
+        
+        <a href="../Data/সুরা কাউসার/sura.html">    
+            <button class="surah-button" data-surah="kausar">সূরা কাউসার</button>
+        </a>
+        
+        <a href="../Data/সুরা কাফিরুন/sura.html">    
+            <button class="surah-button" data-surah="kafirun">সূরা কাফিরুন</button>
+        </a>
+        
+        <a href="../Data/সুরা নাছর/sura.html">    
+            <button class="surah-button" data-surah="nasr">সূরা নাছর</button>
+        </a>
+        
+        <a href="../Data/সুরা নাস/sura.html">    
+            <button class="surah-button" data-surah="nas">সূরা নাস</button>
+        </a>
+        
+        <a href="../Data/সুরা ফালাক/sura.html">    
+            <button class="surah-button" data-surah="falaq">সূরা ফালাক</button>
+        </a>
+        
+        <a href="../Data/সুরা ফিল/sura.html">    
+            <button class="surah-button" data-surah="fil">সূরা ফিল</button>
+        </a>
+        
+        <a href="../Data/সুরা লাহাব/sura.html">    
+            <button class="surah-button" data-surah="lahab">সূরা লাহাব</button>
+        </a>    
+            <!-- Add more buttons here if needed -->
+        </div>
+    </main>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.surah-button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const surahNameBn = button.textContent; // Get Bengali name from button
+                    const surahIdentifier = button.dataset.surah; // Get identifier from data attribute
+
+                    console.log(`ক্লিক করা হয়েছে: ${surahNameBn} (Identifier: ${surahIdentifier})`);
+
+                    // এখানে ভবিষ্যতে প্রতিটি বাটনের জন্য নির্দিষ্ট কাজ যোগ করা যেতে পারে।
+                    // যেমন: একটি পপ-আপ উইন্ডোতে সূরার তথ্য দেখানো বা অন্য পেজে নিয়ে যাওয়া।
+                    
+
+                    // উদাহরণ: যদি অন্য পেজে নিতে চান (প্রতিটি সূরার জন্য আলাদা পেজ থাকলে)
+                    // window.location.href = `/surah/${surahIdentifier}.html`;
+                });
+            });
+
+            // হোম বাটনের জন্য আলাদা কোনো জাভাস্ক্রিপ্ট দরকার নেই কারণ এটি একটি সাধারণ লিংক (`<a>` ট্যাগ)
+            // যা সরাসরি index.html এ নেভিগেট করবে।
+        });
+    </script>
+
+</body>
+</html>

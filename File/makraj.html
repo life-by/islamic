@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="bn"> <!-- ভাষা যোগ করা হয়েছে -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- রেসপন্সিভ ডিজাইনের জন্য গুরুত্বপূর্ণ -->
+    <!-- External CSS লিঙ্ক করার প্রয়োজন নেই কারণ স্টাইল ইনলাইন দেওয়া আছে -->
+    <!-- <link rel="stylesheet" type="text/css" href="makraj.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Font Awesome আইকনের জন্য -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet"> <!-- বাংলা ফন্ট -->
+    <title>মাখরাজ শিক্ষা</title> <!-- উন্নত টাইটেল -->
+
+    <style>
+        /* --- বেসিক স্টাইল এবং ভেরিয়েবল --- */
+        :root {
+            --primary-bg: #f0f4f8;
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --box-bg: #f3dc48;
+            --box-border: #a18c0a;
+            --button-bg: rgba(230, 230, 230, 0.6); /* হালকা ব্যাকগ্রাউন্ড */
+            --button-border: #555;
+            --button-text: #111;
+            --button-hover-bg: rgba(200, 200, 200, 0.8);
+            --back-button-bg: #e52d3d;
+            --back-button-text: #f9ea03;
+            --back-button-hover-bg: #c41a2a;
+            --shadow-light: rgba(0, 0, 0, 0.2);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --border-radius-medium: 8px;
+            --font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            background-image: url("../img/back.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover; /* পুরো স্ক্রিন কভার করবে */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* কন্টেন্ট মাঝে আনতে সাহায্য করবে */
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            width: 100%;
+            max-width: 700px; /* কন্টেনারের সর্বোচ্চ প্রস্থ */
+            text-align: center;
+        }
+
+        /* --- ডিসপ্লে বক্স --- */
+        .box {
+            width: 90%; /* প্রস্থ রেসপন্সিভ */
+            max-width: 450px; /* সর্বোচ্চ প্রস্থ */
+            min-height: 100px; /* টেক্সটের জন্য পর্যাপ্ত উচ্চতা */
+            border: 2px solid var(--box-border);
+            margin: 0 auto 1.5rem auto; /* উপরে-নিচে মার্জিন, ডানে-বামে অটো */
+            border-radius: var(--border-radius-medium);
+            background-color: var(--box-bg);
+            box-shadow: 0 4px 15px var(--shadow-light);
+            padding: 1rem; /* ভিতরের টেক্সটের জন্য প্যাডিং */
+            display: flex; /* টেক্সট মাঝে আনার জন্য */
+            align-items: center;
+            justify-content: center;
+        }
+
+        #Text {
+             font-size: clamp(1rem, 3vw, 1.3rem); /* রেসপন্সিভ ফন্ট সাইজ */
+             color: #333;
+             line-height: 1.5;
+        }
+
+        /* --- বাটন গ্রিড --- */
+        .button-grid {
+            display: grid;
+            /* বাটন সংখ্যা অনুযায়ী কলাম সংখ্যা অ্যাডজাস্ট হবে */
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 1rem; /* বাটনগুলোর মধ্যে ফাঁকা জায়গা */
+            margin-bottom: 2rem; /* নিচে ফাঁকা জায়গা */
+        }
+
+        /* --- মাখরাজ বাটন --- */
+        .makhraj-button {
+            /* width ও height অটো হবে প্যাডিং অনুযায়ী */
+            padding: 0.8rem 0.5rem; /* উপরে-নিচে ও ডানে-বামে প্যাডিং */
+            min-height: 75px; /* ন্যূনতম উচ্চতা */
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* রেসপন্সিভ ফন্ট সাইজ */
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 4px 10px var(--shadow-light);
+            background: var(--button-bg);
+            backdrop-filter: blur(3px); /* হালকা ব্লার */
+            color: var(--button-text);
+            text-shadow: 0 0 3px rgba(255, 255, 0, 0.5); /* হালকা টেক্সট শ্যাডো */
+            border: 1px solid var(--button-border);
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            font-weight: bold;
+            line-height: 1.3; /* মাল্টিলাইন টেক্সটের জন্য */
+            display: flex; /* টেক্সট ভার্টিকালি সেন্টারের জন্য */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            touch-action: manipulation; /* টাচ রেসপন্স উন্নত করবে */
+        }
+
+        .makhraj-button:hover {
+            background-color: var(--button-hover-bg);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+        .makhraj-button:active {
+             transform: translateY(1px);
+        }
+
+        /* --- ফিরে যান বাটন --- */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            font-weight: bold;
+            color: var(--back-button-text);
+            background-color: var(--back-button-bg);
+            border: none;
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 4px 10px var(--shadow-light);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            min-width: 150px;
+            text-align: center;
+            touch-action: manipulation;
+        }
+         .back-button i {
+            margin-right: 0.5rem;
+        }
+         .back-button:hover {
+            background-color: var(--back-button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+        }
+         .back-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- অডিও ট্যাগগুলো এখানে থাকবে -->
+    <audio id="sound_001" src="../sound/1_1.mp3" preload="metadata"></audio>
+    <audio id="sound_002" src="../sound/2_1.mp3" preload="metadata"></audio>
+    <audio id="sound_003" src="../sound/3_1.mp3" preload="metadata"></audio>
+    <audio id="sound_004" src="../sound/4_1.mp3" preload="metadata"></audio>
+    <audio id="sound_005" src="../sound/5_1.mp3" preload="metadata"></audio>
+    <audio id="sound_006" src="../sound/6_1.mp3" preload="metadata"></audio>
+    <audio id="sound_007" src="../sound/7_1.mp3" preload="metadata"></audio>
+    <audio id="sound_008" src="../sound/8_1.mp3" preload="metadata"></audio>
+    <audio id="sound_009" src="../sound/9_1.mp3" preload="metadata"></audio>
+    <audio id="sound_010" src="../sound/10_1.mp3" preload="metadata"></audio>
+    <audio id="sound_011" src="../sound/11_1.mp3" preload="metadata"></audio>
+    <audio id="sound_012" src="../sound/12_1.mp3" preload="metadata"></audio>
+    <audio id="sound_013" src="../sound/13_1.mp3" preload="metadata"></audio>
+    <audio id="sound_014" src="../sound/14_1.mp3" preload="metadata"></audio>
+    <audio id="sound_015" src="../sound/15_1.mp3" preload="metadata"></audio>
+    <audio id="sound_016" src="../sound/16_1.mp3" preload="metadata"></audio>
+    <audio id="sound_017" src="../sound/17_1.mp3" preload="metadata"></audio>
+
+    <div class="container"> <!-- একটি কন্টেইনার ডিভ যোগ করা হয়েছে -->
+
+        <div class="box" aria-live="polite"> <!-- aria-live যোগ করা হয়েছে স্ক্রিন রিডারের জন্য -->
+            <h3 id="Text">মাখরাজ নির্বাচন করুন</h3> <!-- ডিফল্ট টেক্সট -->
+        </div>
+
+        <!-- বাটনগুলো গ্রিডে রাখা হয়েছে -->
+        <div class="button-grid">
+            <button class="makhraj-button" data-makhraj="1">১-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="2">২-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="3">৩-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="4">৪-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="5">৫-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="6">৬-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="7">৭-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="8">৮-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="9">৯-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="10">১০-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="11">১১-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="12">১২-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="13">১৩-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="14">১৪-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="15">১৫-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="16">১৬-নং মাখরাজ</button>
+            <button class="makhraj-button" data-makhraj="17">১৭-নং মাখরাজ</button>
+        </div>
+
+        <!-- ফিরে যান বাটন -->
+        <a href="../index.html" class="back-button">
+             <i class="fa fa-arrow-left" aria-hidden="true"></i> <!-- আইকন যোগ করা হয়েছে -->
+             ফিরে যান
+        </a>
+
+    </div> <!-- কন্টেইনার ডিভ শেষ -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttonGrid = document.querySelector('.button-grid');
+            const displayTextBox = document.getElementById('Text');
+            let currentlyPlayingAudio = null;
+
+            // মাখরাজের তথ্য (টেক্সট এবং সাউন্ড আইডি)
+            const makhrajData = [
+                { num: 1, text: "১-নং মাখরাজ: হলকের শুরু (কন্ঠনালী) হতে উচ্চারিত হয় - ء ه", soundId: "sound_001" },
+                { num: 2, text: "২-নং মাখরাজ: হলকের মধ্যখান হতে উচ্চারিত হয় - ع ح", soundId: "sound_002" },
+                { num: 3, text: "৩-নং মাখরাজ: হলকের শেষ (মুখের কাছাকাছি) হতে উচ্চারিত হয় - غ خ", soundId: "sound_003" },
+                { num: 4, text: "৪-নং মাখরাজ: জিহবার গোড়া তার বরাবর উপরের তালুর সঙ্গে লাগিয়ে - ق", soundId: "sound_004" },
+                { num: 5, text: "৫-নং মাখরাজ: জিহবার গোড়া থেকে একটু আগে বাড়িয়ে তার বরাবর উপরের তালুর সঙ্গে লাগিয়ে - ك", soundId: "sound_005" },
+                { num: 6, text: "৬-নং মাখরাজ: জিহবার মধ্যখান তার বরাবর উপরের তালুর সঙ্গে লাগিয়ে - ج ش ى", soundId: "sound_006" },
+                { num: 7, text: "৭-নং মাখরাজ: জিহবার গোড়ার কিনারা উপরের মাড়ির দাঁতের গোড়ার সঙ্গে লাগিয়ে - ض", soundId: "sound_007" },
+                { num: 8, text: "৮-নং মাখরাজ: জিহবার আগার কিনারা সামনের উপরের দাঁতের মাড়ির সঙ্গে লাগিয়ে - ل", soundId: "sound_008" },
+                { num: 9, text: "৯-নং মাখরাজ: জিহবার আগা তার বরাবর উপরের তালুর সঙ্গে লাগিয়ে - ن", soundId: "sound_009" },
+                { num: 10, text: "১০-নং মাখরাজ: জিহবার আগার পিঠ তার বরাবর উপরের তালুর সঙ্গে লাগিয়ে - ر", soundId: "sound_010" },
+                { num: 11, text: "১১-নং মাখরাজ: জিহবার আগা সামনের উপরের দুই দাঁতের গোড়ার সঙ্গে লাগিয়ে - ط د ت", soundId: "sound_011" },
+                { num: 12, text: "১২-নং মাখরাজ: জিহবার আগা সামনের নিচের দুই দাঁতের পেট ও আগার সঙ্গে লাগিয়ে - ص س ز", soundId: "sound_012" },
+                { num: 13, text: "১৩-নং মাখরাজ: জিহবার আগা সামনের উপরের দুই দাঁতের আগার সঙ্গে লাগিয়ে - ظ ذ ث", soundId: "sound_013" },
+                { num: 14, text: "১৪-নং মাখরাজ: নিচের ঠোঁটের পেট সামনের উপরের দুই দাঁতের আগার সঙ্গে লাগিয়ে - ف", soundId: "sound_014" },
+                { num: 15, text: "১৫-নং মাখরাজ: দুই ঠোঁট হতে উচ্চারিত হয় - ب م و", soundId: "sound_015" },
+                { num: 16, text: "১৬-নং মাখরাজ: মুখের খালি জায়গা থেকে মাদ্দ (দীর্ঘ স্বর) উচ্চারিত হয় - باَ بُو بِيْ", soundId: "sound_016" },
+                { num: 17, text: "১৭-নং মাখরাজ: নাকের বাঁশি থেকে গুন্নাহ উচ্চারিত হয় - اَنَّ عَمَّ كُنَّ", soundId: "sound_017" }
+            ];
+
+            // ফাংশন: বর্তমান অডিও বন্ধ করা
+            function stopCurrentAudio() {
+                if (currentlyPlayingAudio && !currentlyPlayingAudio.paused) {
+                    currentlyPlayingAudio.pause();
+                    currentlyPlayingAudio.currentTime = 0; // শুরুতে ফিরিয়ে আনা
+                }
+            }
+
+            // ফাংশন: মাখরাজ দেখানো এবং শব্দ বাজানো
+            function showMakhraj(makhrajNumber) {
+                const data = makhrajData.find(item => item.num === makhrajNumber);
+                if (!data) return; // যদি ডেটা না পাওয়া যায়
+
+                stopCurrentAudio(); // আগের শব্দ বন্ধ করা
+
+                // টেক্সট আপডেট করা
+                displayTextBox.innerHTML = data.text;
+
+                // শব্দ বাজানো
+                const sound = document.getElementById(data.soundId);
+                if (sound) {
+                    sound.play()
+                        .then(() => {
+                            currentlyPlayingAudio = sound; // বর্তমান শব্দ ট্র্যাক করা
+                        })
+                        .catch(error => {
+                            console.error(`Error playing ${data.soundId}:`, error);
+                            displayTextBox.innerHTML = `${data.text} <br><small>(শব্দ বাজানো যায়নি)</small>`; // ত্রুটি বার্তা
+                        });
+                } else {
+                    console.error(`Sound element not found: ${data.soundId}`);
+                    displayTextBox.innerHTML = `${data.text} <br><small>(শব্দ ফাইল পাওয়া যায়নি)</small>`; // ত্রুটি বার্তা
+                }
+            }
+
+            // ইভেন্ট লিসেনার: বাটন গ্রিডে ক্লিক পরিচালনা করা (ইভেন্ট ডেলিগেশন)
+            buttonGrid.addEventListener('click', (event) => {
+                const button = event.target.closest('.makhraj-button'); // ক্লিকের টার্গেট বাটন কিনা চেক করা
+                if (button && button.dataset.makhraj) {
+                    const makhrajNum = parseInt(button.dataset.makhraj, 10); // ডেটাসেট থেকে নম্বর নেওয়া
+                    showMakhraj(makhrajNum); // ফাংশন কল করা
+                }
+            });
+
+             // কীবোর্ড অ্যাক্সেসিবিলিটি (ঐচ্ছিক কিন্তু ভালো)
+             buttonGrid.addEventListener('keydown', (event) => {
+                 const button = event.target.closest('.makhraj-button');
+                 if (button && button.dataset.makhraj && (event.key === 'Enter' || event.key === ' ')) {
+                     event.preventDefault(); // ডিফল্ট অ্যাকশন বন্ধ করা
+                     const makhrajNum = parseInt(button.dataset.makhraj, 10);
+                     showMakhraj(makhrajNum);
+                 }
+             });
+
+        }); // DOMContentLoaded শেষ
+    </script>
+
+</body>
+</html>

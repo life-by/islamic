@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures proper rendering and touch zooming -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>আরবি হরফ শিক্ষা</title> <!-- Corrected and meaningful title -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base Styles & Variables --- */
+        :root {
+            --primary-bg: #eef7f6; /* Light background for page */
+            --container-bg: rgba(255, 255, 255, 0.85); /* Semi-transparent white for container */
+            --display-box-bg: white;
+            --display-box-border: #333;
+            --letter-border: #444;
+            --button-bg: #e52d3d;
+            --button-text: #f9ea03;
+            --button-hover-bg: #c41a2a;
+            --shadow-light: rgba(0, 0, 0, 0.15);
+            --shadow-medium: rgba(0, 0, 0, 0.3);
+            --border-radius-medium: 10px;
+            --border-radius-large: 15px;
+            --border-radius-round: 50%;
+            --font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px; /* Base font size */
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            background-image: url('../Arabic Alfabet/back.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            min-height: 100vh;
+            padding: 1rem; /* Use rem for scalable padding */
+            color: #333;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            background-color: var(--container-bg);
+            padding: clamp(1.5rem, 5vw, 2.5rem); /* Responsive padding */
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+            width: 100%;
+            max-width: 600px; /* Limit max width on large screens */
+            text-align: center;
+        }
+
+        /* --- Display Box --- */
+        .display-box {
+            width: clamp(80px, 20vw, 120px); /* Responsive width */
+            height: clamp(80px, 20vw, 120px); /* Responsive height */
+            background-color: var(--display-box-bg);
+            border: 3px solid var(--display-box-border);
+            border-radius: var(--border-radius-large);
+            margin: 0 auto 2rem auto; /* Center and add space below */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+
+        #display-letter {
+            display: block;
+            max-width: 85%;
+            max-height: 85%;
+            border-radius: var(--border-radius-medium); /* Optional rounding inside */
+            object-fit: contain; /* Ensure image fits well */
+        }
+
+        /* --- Letter Grid --- */
+        .letter-grid {
+            display: grid;
+            /* Responsive columns: 2 on small, 3 on medium, 4 on larger */
+            grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+            gap: clamp(0.75rem, 2.5vw, 1rem); /* Responsive gap */
+            margin-bottom: 2rem; /* Space below grid */
+            justify-content: center;
+        }
+
+        .letter-img {
+            /* Use aspect-ratio for perfect circles that scale */
+            aspect-ratio: 1 / 1;
+            width: 100%; /* Take full width of grid cell */
+            max-width: 75px; /* Optional max size */
+            border: 4px solid var(--letter-border);
+            border-radius: var(--border-radius-round);
+            box-shadow: 0 5px 10px var(--shadow-medium);
+            cursor: pointer;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            object-fit: contain; /* Ensure letter image fits well */
+            background-clip: padding-box; /* Keep background inside border */
+            justify-self: center; /* Center image within its grid cell */
+            touch-action: manipulation; /* Improve touch responsiveness */
+        }
+
+        .letter-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px var(--shadow-medium);
+        }
+        .letter-img:active {
+             transform: scale(0.95); /* Click feedback */
+        }
+
+        /* --- Letter Background Colors (Corrected & Consolidated) --- */
+        /* Resolved conflicts for t6, t19, t29 */
+        .t1, .t5, .t9, .t12, .t23, .t26 { background-color: #bfe134; }
+        .t2, .t6, .t10, .t13, .t24, .t27 { background-color: #48f0ba; } /* t6 gets this */
+        .t3, .t11, .t14, .t19, .t29      { background-color: #3daaf1; } /* t19, t29 get this */
+        .t4, .t17, .t20, .t22            { background-color: #6d6df8; }
+        .t8, .t18, .t21                  { background-color: #e42fb2; }
+        .t7, .t15, .t16, .t25, .t28      { background-color: #802fe3; }
+
+
+        /* --- Back Button Link --- */
+        .home-button-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* Use rem */
+            font-size: clamp(1rem, 4vw, 1.25rem); /* Responsive font size */
+            font-weight: bold;
+            color: var(--button-text);
+            background-color: var(--button-bg);
+            border: none;
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 4px 10px var(--shadow-light);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            min-width: 180px; /* Ensure minimum clickable width */
+            text-align: center;
+            touch-action: manipulation; /* Improve touch responsiveness */
+        }
+
+        .home-button-link i {
+            margin-right: 0.5rem;
+        }
+
+        .home-button-link:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+        }
+
+        .home-button-link:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+
+        /* --- Accessibility Helper --- */
+        .sr-only { /* For screen readers only */
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="sr-only">আরবি হরফ শিক্ষা ইন্টার‌্যাক্টিভ বোর্ড</h1> <!-- Hidden title for screen readers -->
+
+        <div class="display-box" aria-live="polite"> <!-- Announce changes to screen readers -->
+            <img id="display-letter" src="../Arabic Alfabet/logo.jpg" alt="নির্বাচিত হরফ এখানে দেখাবে">
+        </div>
+
+        <div id="letter-grid" class="letter-grid" role="grid" aria-label="আরবি হরফসমূহ">
+
+            <!-- Letters with data-letter attribute for JS and proper alt text -->
+            <!-- Row 1 -->
+            <img src="../Arabic Alfabet/1.png" class="letter-img t1" data-letter="1" alt="আরবি হরফ আলিফ" role="button">
+            <img src="../Arabic Alfabet/2.png" class="letter-img t2" data-letter="2" alt="আরবি হরফ বা" role="button">
+            <img src="../Arabic Alfabet/3.png" class="letter-img t3" data-letter="3" alt="আরবি হরফ তা" role="button">
+            <img src="../Arabic Alfabet/4.png" class="letter-img t4" data-letter="4" alt="আরবি হরফ ছা" role="button">
+            <!-- Row 2 -->
+            <img src="../Arabic Alfabet/5.png" class="letter-img t5" data-letter="5" alt="আরবি হরফ জিম" role="button">
+            <img src="../Arabic Alfabet/6.png" class="letter-img t6" data-letter="6" alt="আরবি হরফ হা" role="button">
+            <img src="../Arabic Alfabet/7.png" class="letter-img t7" data-letter="7" alt="আরবি হরফ খ" role="button">
+            <img src="../Arabic Alfabet/8.png" class="letter-img t8" data-letter="8" alt="আরবি হরফ দাল" role="button">
+            <!-- Row 3 -->
+            <img src="../Arabic Alfabet/9.png" class="letter-img t9" data-letter="9" alt="আরবি হরফ যাল" role="button">
+            <img src="../Arabic Alfabet/10.png" class="letter-img t10" data-letter="10" alt="আরবি হরফ র" role="button">
+            <img src="../Arabic Alfabet/11.png" class="letter-img t11" data-letter="11" alt="আরবি হরফ যা" role="button">
+            <img src="../Arabic Alfabet/12.png" class="letter-img t12" data-letter="12" alt="আরবি হরফ সিন" role="button">
+             <!-- Row 4 -->
+            <img src="../Arabic Alfabet/13.png" class="letter-img t13" data-letter="13" alt="আরবি হরফ শিন" role="button">
+            <img src="../Arabic Alfabet/14.png" class="letter-img t14" data-letter="14" alt="আরবি হরফ সদ" role="button">
+            <img src="../Arabic Alfabet/15.png" class="letter-img t15" data-letter="15" alt="আরবি হরফ দদ" role="button">
+            <img src="../Arabic Alfabet/16.png" class="letter-img t16" data-letter="16" alt="আরবি হরফ ত" role="button">
+             <!-- Row 5 -->
+            <img src="../Arabic Alfabet/17.png" class="letter-img t17" data-letter="17" alt="আরবি হরফ য" role="button">
+            <img src="../Arabic Alfabet/18.png" class="letter-img t18" data-letter="18" alt="আরবি হরফ আইন" role="button">
+            <img src="../Arabic Alfabet/19.png" class="letter-img t19" data-letter="19" alt="আরবি হরফ গইন" role="button">
+            <img src="../Arabic Alfabet/20.png" class="letter-img t20" data-letter="20" alt="আরবি হরফ ফা" role="button">
+            <!-- Row 6 -->
+            <img src="../Arabic Alfabet/21.png" class="letter-img t21" data-letter="21" alt="আরবি হরফ কফ" role="button">
+            <img src="../Arabic Alfabet/22.png" class="letter-img t22" data-letter="22" alt="আরবি হরফ কাফ" role="button">
+            <img src="../Arabic Alfabet/23.png" class="letter-img t23" data-letter="23" alt="আরবি হরফ লাম" role="button">
+            <img src="../Arabic Alfabet/24.png" class="letter-img t24" data-letter="24" alt="আরবি হরফ মিম" role="button">
+            <!-- Row 7 -->
+            <img src="../Arabic Alfabet/25.png" class="letter-img t25" data-letter="25" alt="আরবি হরফ নুন" role="button">
+            <img src="../Arabic Alfabet/26.png" class="letter-img t26" data-letter="26" alt="আরবি হরফ ওয়াও" role="button">
+            <img src="../Arabic Alfabet/27.png" class="letter-img t27" data-letter="27" alt="আরবি হরফ হা" role="button">
+            <img src="../Arabic Alfabet/28.png" class="letter-img t28" data-letter="28" alt="আরবি হরফ ইয়া" role="button">
+             <!-- Row 8 - Single item centered by grid properties -->
+            <img src="../Arabic Alfabet/29.png" class="letter-img t29" data-letter="29" alt="আরবি হরফ ..." role="button"> <!-- Add appropriate name for 29 -->
+        </div>
+
+        <!-- Back Button Link -->
+        <a href="../index.html" class="home-button-link">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            হোম পেজে ফিরে যাও
+        </a>
+
+    </div> <!-- End of container -->
+
+    <!-- Audio Elements - preload="metadata" is efficient -->
+    <audio id="sound_001" src="../sound/001.mp3" preload="metadata"></audio>
+    <audio id="sound_002" src="../sound/002.mp3" preload="metadata"></audio>
+    <audio id="sound_003" src="../sound/003.mp3" preload="metadata"></audio>
+    <audio id="sound_004" src="../sound/004.mp3" preload="metadata"></audio>
+    <audio id="sound_005" src="../sound/005.mp3" preload="metadata"></audio>
+    <audio id="sound_006" src="../sound/006.mp3" preload="metadata"></audio>
+    <audio id="sound_007" src="../sound/007.mp3" preload="metadata"></audio>
+    <audio id="sound_008" src="../sound/008.mp3" preload="metadata"></audio>
+    <audio id="sound_009" src="../sound/009.mp3" preload="metadata"></audio>
+    <audio id="sound_010" src="../sound/010.mp3" preload="metadata"></audio>
+    <audio id="sound_011" src="../sound/011.mp3" preload="metadata"></audio>
+    <audio id="sound_012" src="../sound/012.mp3" preload="metadata"></audio>
+    <audio id="sound_013" src="../sound/013.mp3" preload="metadata"></audio>
+    <audio id="sound_014" src="../sound/014.mp3" preload="metadata"></audio>
+    <audio id="sound_015" src="../sound/015.mp3" preload="metadata"></audio>
+    <audio id="sound_016" src="../sound/016.mp3" preload="metadata"></audio>
+    <audio id="sound_017" src="../sound/017.mp3" preload="metadata"></audio>
+    <audio id="sound_018" src="../sound/018.mp3" preload="metadata"></audio>
+    <audio id="sound_019" src="../sound/019.mp3" preload="metadata"></audio>
+    <audio id="sound_020" src="../sound/020.mp3" preload="metadata"></audio>
+    <audio id="sound_021" src="../sound/021.mp3" preload="metadata"></audio>
+    <audio id="sound_022" src="../sound/022.mp3" preload="metadata"></audio>
+    <audio id="sound_023" src="../sound/023.mp3" preload="metadata"></audio>
+    <audio id="sound_024" src="../sound/024.mp3" preload="metadata"></audio>
+    <audio id="sound_025" src="../sound/025.mp3" preload="metadata"></audio>
+    <audio id="sound_026" src="../sound/026.mp3" preload="metadata"></audio>
+    <audio id="sound_027" src="../sound/027.mp3" preload="metadata"></audio>
+    <audio id="sound_028" src="../sound/028.mp3" preload="metadata"></audio>
+    <audio id="sound_029" src="../sound/029.mp3" preload="metadata"></audio>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const letterGrid = document.getElementById('letter-grid');
+            const displayImage = document.getElementById('display-letter');
+            let currentlyPlayingAudio = null;
+
+            // --- Function to Stop Current Audio ---
+            function stopCurrentAudio() {
+                if (currentlyPlayingAudio && !currentlyPlayingAudio.paused) {
+                    currentlyPlayingAudio.pause();
+                    currentlyPlayingAudio.currentTime = 0; // Reset time
+                }
+            }
+
+            // --- Function to Play Sound ---
+            function playSound(letterNumber) {
+                stopCurrentAudio(); // Stop any sound playing before starting new one
+
+                const paddedNumber = String(letterNumber).padStart(3, '0');
+                const soundId = `sound_${paddedNumber}`;
+                const sound = document.getElementById(soundId);
+                const imagePath = `../Arabic Alfabet/${letterNumber}.png`;
+                // Find the corresponding image element to get its alt text
+                const letterImageElement = letterGrid.querySelector(`[data-letter="${letterNumber}"]`);
+                const altText = letterImageElement ? letterImageElement.alt : `আরবি হরফ ${letterNumber}`; // Fallback alt text
+
+                if (sound && displayImage) {
+                    // Update display image
+                    displayImage.src = imagePath;
+                    displayImage.alt = altText; // Update alt text for display
+
+                    // Play the sound
+                    sound.play()
+                        .then(() => {
+                            currentlyPlayingAudio = sound; // Track the currently playing audio
+                        })
+                        .catch(error => {
+                            console.error(`Error playing sound ${soundId}:`, error);
+                            // Optionally provide user feedback about the error
+                        });
+                } else {
+                    if (!sound) console.error(`Audio element not found: ${soundId}`);
+                    if (!displayImage) console.error('Display image element (#display-letter) not found.');
+                }
+            }
+
+            // --- Event Listener for Letter Grid (Event Delegation) ---
+            letterGrid.addEventListener('click', (event) => {
+                const target = event.target;
+                // Check if the clicked element is a letter image with a data-letter attribute
+                if (target.tagName === 'IMG' && target.classList.contains('letter-img') && target.dataset.letter) {
+                    const letterNumber = target.dataset.letter;
+                    playSound(letterNumber);
+                }
+            });
+
+             // Optional: Add keyboard accessibility to letters
+             letterGrid.addEventListener('keydown', (event) => {
+                const target = event.target;
+                 if (target.tagName === 'IMG' && target.classList.contains('letter-img') && target.dataset.letter) {
+                     // Trigger click on Enter or Space press
+                     if (event.key === 'Enter' || event.key === ' ') {
+                         event.preventDefault(); // Prevent default space scroll
+                         playSound(target.dataset.letter);
+                     }
+                 }
+             });
+
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>
