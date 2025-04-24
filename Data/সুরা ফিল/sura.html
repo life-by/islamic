@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" href="sura.css"> -->
+    <title>সুরা ফীল</title>
+    <style type="text/css">
+        body {
+            background-image: url("Back/Back.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 500px 800px; /* Consider 'cover' or 'contain' */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .Box {
+            width: 350px;
+            min-height: 260px; /* Use min-height */
+            height: auto; /* Auto height */
+            border: 2px solid black;
+            margin: 20px auto 5px auto;
+            border-radius: 15px;
+            background-color: yellow;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .Box h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+         .Box h3 {
+            margin: 8px 0;
+             font-size: 1.1em;
+        }
+        #Text {
+            font-size: 1.5em;
+             line-height: 1.6;
+        }
+        button {
+            width: 250px;
+            height: 40px;
+            margin-bottom: 10px;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: #1ed1f1;
+            border: 2px solid #1075ee;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1075ee;
+            color: white;
+        }
+        .back-button {
+            background-color: red !important;
+            border: 2px solid black !important;
+            color: white;
+            margin-top: 20px;
+        }
+         .back-button:hover {
+             background-color: darkred !important;
+             color: white;
+         }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="Box" id="Box">
+            <h2>সুরা ফীল</h2>
+            <h3 id="Text" lang="ar" dir="rtl"></h3>
+            <h3 id="Text_2"></h3>
+        </div>
+
+        <!-- Audio elements -->
+        <audio id="sound_001" src="sound/1.mp3" preload="auto"></audio>
+        <audio id="sound_002" src="sound/2.mp3" preload="auto"></audio>
+        <audio id="sound_003" src="sound/3.mp3" preload="auto"></audio>
+        <audio id="sound_004" src="sound/4.mp3" preload="auto"></audio>
+        <audio id="sound_005" src="sound/5.mp3" preload="auto"></audio>
+        <audio id="sound_006" src="sound/6.mp3" preload="auto"></audio>
+
+        <!-- Control Buttons -->
+        <button onclick="playVerse(1, 'بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ', 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।');">শুরু</button><br>
+        <button onclick="playVerse(2, '  اَلَمۡ تَرَ كَیۡفَ فَعَلَ رَبُّكَ بِاَصۡحٰبِ الۡفِیۡلِ ؕ ', 'তুমি কি দেখনি তোমার রব হাতীওয়ালাদের সাথে কী করেছিলেন?');">পাঠ-১</button><br>
+        <button onclick="playVerse(3, ' اَلَمۡ یَجۡعَلۡ كَیۡدَهُمۡ فِیۡ تَضۡلِیۡلٍ ', 'তিনি কি তাদের চক্রান্ত ব্যর্থ করে দেননি?');">পাঠ-২</button><br>
+        <button onclick="playVerse(4, ' وَّ اَرۡسَلَ عَلَیۡهِمۡ طَیۡرًا اَبَابِیۡلَ ', 'আর তিনি তাদের বিরুদ্ধে ঝাঁকে ঝাঁকে পাখি প্রেরণ করেছিলেন।');">পাঠ-৩</button><br>
+        <button onclick="playVerse(5, ' تَرۡمِیۡهِمۡ بِحِجَارَۃٍ مِّنۡ سِجِّیۡلٍ ۪ۙ ', 'তারা তাদের ওপর নিক্ষেপ করে পোড়ামাটির কঙ্কর।');">পাঠ-৪</button><br>
+        <button onclick="playVerse(6, ' فَجَعَلَهُمۡ كَعَصۡفٍ مَّاۡكُوۡلٍ ', 'অতঃপর তিনি তাদেরকে করলেন ভক্ষিত শস্যপাতার ন্যায়।');">পাঠ-৫</button><br>
+
+        <!-- Back Button -->
+        <a href="../../File/sora-H.html" style="text-decoration: none;">
+            <button class="back-button">ফিরে যাও</button>
+        </a>
+    </center>
+
+    <script>
+        let currentAudio = null;
+
+        function playVerse(verseNumber, arabicText, translationText) {
+            const soundId = 'sound_' + String(verseNumber).padStart(3, '0');
+            const sound = document.getElementById(soundId);
+
+             if (!sound) {
+                console.error("Audio element not found:", soundId);
+                return;
+            }
+
+            if (currentAudio && currentAudio !== sound) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            document.getElementById('Text').innerHTML = arabicText;
+            document.getElementById('Text_2').innerHTML = translationText;
+
+            sound.play()
+                 .then(() => { currentAudio = sound; })
+                 .catch(error => { console.error("Error playing audio:", error); });
+        }
+
+         window.onload = () => {
+             // Set initial text without playing audio
+             document.getElementById('Text').innerHTML = ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ';
+             document.getElementById('Text_2').innerHTML = 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।';
+         };
+    </script>
+</body>
+</html>

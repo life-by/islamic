@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" href="sura.css"> -->
+    <title>সুরা ফাতিহা</title>
+    <style type="text/css">
+        body {
+            background-image: url("Back/Back.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 500px 800px; /* Consider 'cover' or 'contain' */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .Box {
+            width: 350px;
+            min-height: 260px; /* Use min-height */
+            height: auto; /* Auto height */
+            border: 2px solid black;
+            margin: 20px auto 5px auto;
+            border-radius: 15px;
+            background-color: yellow;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .Box h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+         .Box h3 {
+            margin: 8px 0;
+             font-size: 1.1em;
+        }
+        #Text {
+            font-size: 1.5em;
+             line-height: 1.6;
+        }
+        button {
+            width: 250px;
+            height: 40px;
+            margin-bottom: 10px;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: #1ed1f1;
+            border: 2px solid #1075ee;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1075ee;
+            color: white;
+        }
+        .back-button {
+            background-color: red !important;
+            border: 2px solid black !important;
+            color: white;
+            margin-top: 20px;
+        }
+         .back-button:hover {
+             background-color: darkred !important;
+             color: white;
+         }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="Box" id="Box">
+            <h2>সুরা ফাতিহা</h2>
+            <h3 id="Text" lang="ar" dir="rtl"></h3>
+            <h3 id="Text_2"></h3>
+        </div>
+
+        <!-- Audio elements (using 00X.mp3 format as per original file) -->
+        <audio id="sound_001" src="sound/001.mp3" preload="auto"></audio>
+        <audio id="sound_002" src="sound/002.mp3" preload="auto"></audio>
+        <audio id="sound_003" src="sound/003.mp3" preload="auto"></audio>
+        <audio id="sound_004" src="sound/004.mp3" preload="auto"></audio>
+        <audio id="sound_005" src="sound/005.mp3" preload="auto"></audio>
+        <audio id="sound_006" src="sound/006.mp3" preload="auto"></audio>
+        <audio id="sound_007" src="sound/007.mp3" preload="auto"></audio>
+
+        <!-- Control Buttons -->
+        <button onclick="playVerse(1, ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ', 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।');">পাঠ-১</button><br>
+        <button onclick="playVerse(2, ' اَلۡحَمۡدُ لِلّٰهِ رَبِّ الۡعٰلَمِیۡنَ ۙ', 'সমস্ত প্রশংসা আল্লাহর জন্য, যিনি সৃষ্টিকুলের রব।');">পাঠ-২</button><br>
+        <button onclick="playVerse(3, ' الرَّحۡمٰنِ الرَّحِیۡمِ', 'দয়াময়, পরম দয়ালু, পরম করুণাময়, অতি দয়ালু।');">পাঠ-৩</button><br>
+        <button onclick="playVerse(4, '  مٰلِكِ یَوۡمِ الدِّیۡنِ ؕ ', 'বিচার দিবসের মালিক।');">পাঠ-৪</button><br>
+        <button onclick="playVerse(5, '  اِیَّاكَ نَعۡبُدُ وَ اِیَّاكَ نَسۡتَعِیۡنُ ؕ ', 'আপনারই আমরা ইবাদাত করি এবং আপনারই নিকট আমরা সাহায্য চাই।');">পাঠ-৫</button><br>
+        <button onclick="playVerse(6, '  اِهۡدِ نَا الصِّرَاطَ الۡمُسۡتَقِیۡمَ ', 'আমাদেরকে সরল পথ দেখান। পথের হিদায়াত দিন।');">পাঠ-৬</button><br>
+        <button onclick="playVerse(7, '  صِرَاطَ الَّذِیۡنَ اَنۡعَمۡتَ عَلَیۡهِمۡ ۬ۙ غَیۡرِ الۡمَغۡضُوۡبِ عَلَیۡهِمۡ وَ لَا الضَّآلِّیۡنَ ', 'তাদের পথ, যাদের উপর আপনি অনুগ্রহ করেছেন। যাদেরকে নিয়ামত দিয়েছেন।যাদের উপর (আপনার) ক্রোধ আপতিত হয়নি এবং যারা পথভ্রষ্টও নয়।');">পাঠ-৭</button><br>
+
+        <!-- Back Button -->
+        <a href="../../File/sora-H.html" style="text-decoration: none;">
+            <button class="back-button">ফিরে যাও</button>
+        </a>
+    </center>
+
+    <script>
+        let currentAudio = null;
+
+        function playVerse(verseNumber, arabicText, translationText) {
+            // Using '00X' format for Fatiha based on original code
+            const soundId = 'sound_' + String(verseNumber).padStart(3, '0');
+            const sound = document.getElementById(soundId);
+
+             if (!sound) {
+                console.error("Audio element not found:", soundId);
+                return;
+            }
+
+            if (currentAudio && currentAudio !== sound) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            document.getElementById('Text').innerHTML = arabicText;
+            document.getElementById('Text_2').innerHTML = translationText;
+
+            sound.play()
+                 .then(() => { currentAudio = sound; })
+                 .catch(error => { console.error("Error playing audio:", error); });
+        }
+
+         window.onload = () => {
+             // Set initial text without playing audio
+             document.getElementById('Text').innerHTML = ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ';
+             document.getElementById('Text_2').innerHTML = 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।';
+         };
+    </script>
+</body>
+</html>

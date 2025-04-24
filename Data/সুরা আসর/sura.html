@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" href="sura.css"> --> <!-- Assuming common styles are below -->
+    <title>সুরা আল-আসর</title>
+    <style type="text/css">
+        body {
+            background-image: url("Back/Back.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 500px 800px; /* Consider using 'cover' or 'contain' for responsiveness */
+            font-family: Arial, sans-serif; /* Added a default font */
+            text-align: center; /* Centering content */
+        }
+        .Box {
+            width: 350px;
+            height: 260px;
+            border: 2px solid black;
+            margin: 20px auto 5px auto; /* Centered the box */
+            border-radius: 15px;
+            background-color: yellow;
+            padding: 10px; /* Added padding */
+            box-sizing: border-box; /* Include padding in width/height */
+            display: flex; /* Using flexbox for better alignment */
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+        .Box h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+         .Box h3 {
+            margin: 10px 0; /* Adjusted margin for h3 */
+            font-size: 1.1em; /* Adjusted font size */
+        }
+        #Text {
+            font-size: 1.5em; /* Larger font for Arabic */
+            line-height: 1.6;
+        }
+        button {
+            width: 250px;
+            height: 40px;
+            margin-bottom: 10px;
+            font-size: 25px;
+            border-radius: 10px;
+            background-color: #1ed1f1;
+            border: 2px solid #1075ee;
+            cursor: pointer; /* Added cursor pointer */
+        }
+        button:hover {
+            background-color: #1075ee; /* Added hover effect */
+            color: white;
+        }
+        .back-button {
+            background-color: red !important; /* Ensure red background */
+            border: 2px solid black !important; /* Ensure black border */
+            color: white; /* Added text color for better contrast */
+            margin-top: 20px;
+        }
+         .back-button:hover {
+             background-color: darkred !important; /* Darker red on hover */
+             color: white;
+         }
+    </style>
+</head>
+<body>
+    <center> <!-- Using center tag as in original, though CSS centering is preferred -->
+
+        <div class="Box" id="Box">
+            <h2>সুরা আল-আসর</h2>
+            <h3 id="Text" lang="ar" dir="rtl">بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ</h3>
+            <h3 id="Text_2">পরম করুণাময় অতি দয়ালু আল্লাহর নামে।</h3>
+        </div>
+
+        <!-- Audio elements -->
+        <audio id="sound_001" src="sound/1.mp3" preload="auto"></audio>
+        <audio id="sound_002" src="sound/2.mp3" preload="auto"></audio>
+        <audio id="sound_003" src="sound/3.mp3" preload="auto"></audio>
+        <audio id="sound_004" src="sound/4.mp3" preload="auto"></audio>
+
+        <!-- Control Buttons -->
+        <button onclick="playVerse(1, ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ', 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।');">শুরু</button><br>
+        <button onclick="playVerse(2, '  وَ الۡعَصۡرِ ', 'সময়ের কসম,');">পাঠ-১</button><br>
+        <button onclick="playVerse(3, ' اِنَّ الۡاِنۡسَانَ لَفِیۡ خُسۡرٍ ', 'মানুষ অবশ্যই ক্ষতির মধ্যে (ডুবে) আছে,');">পাঠ-২</button><br>
+        <button onclick="playVerse(4, ' اِلَّا الَّذِیۡنَ اٰمَنُوۡا وَ عَمِلُوا الصّٰلِحٰتِ وَ تَوَاصَوۡا بِالۡحَقِّ ۬ۙ وَ تَوَاصَوۡا بِالصَّبۡرِ ', 'তবে তারা ছাড়া যারা ঈমান এনেছে, সৎকাজ করেছে, পরস্পরকে সত্যের উপদেশ দিয়েছে এবং পরস্পরকে ধৈর্যের উপদেশ দিয়েছে।');">পাঠ-৩</button><br>
+
+        <!-- Back Button -->
+        <a href="../../File/sora-H.html" style="text-decoration: none;">
+            <button class="back-button">ফিরে যাও</button>
+        </a>
+
+    </center>
+
+    <script>
+        let currentAudio = null; // Variable to keep track of the currently playing audio
+
+        function playVerse(verseNumber, arabicText, translationText) {
+            // Format the sound ID correctly (e.g., sound_001, sound_002)
+            const soundId = 'sound_' + String(verseNumber).padStart(3, '0');
+            const sound = document.getElementById(soundId);
+
+            if (!sound) {
+                console.error("Audio element not found:", soundId);
+                return; // Exit if audio element doesn't exist
+            }
+
+            // Stop currently playing audio, if any
+            if (currentAudio && currentAudio !== sound) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0; // Reset playback position
+            }
+
+            // Update the text display
+            document.getElementById('Text').innerHTML = arabicText;
+            document.getElementById('Text_2').innerHTML = translationText;
+
+            // Play the new audio
+            sound.play()
+                .then(() => {
+                    currentAudio = sound; // Update the current audio reference only on successful play
+                })
+                .catch(error => {
+                    console.error("Error playing audio:", error);
+                    // Handle potential errors, e.g., browser restrictions on autoplay
+                });
+        }
+
+        // Initialize view with Bismillah
+         window.onload = () => {
+             playVerse(1, ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ', 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।');
+             // Optionally stop audio initially if you don't want it to play on load
+              if(currentAudio) {
+                  currentAudio.pause();
+                  currentAudio.currentTime = 0;
+              }
+             // Set initial text without playing audio
+             // document.getElementById('Text').innerHTML = ' بِسۡمِ اللّٰهِ الرَّحۡمٰنِ الرَّحِیۡمِ ';
+             // document.getElementById('Text_2').innerHTML = 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে।';
+         };
+    </script>
+</body>
+</html>
